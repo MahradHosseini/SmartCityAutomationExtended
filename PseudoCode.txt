@@ -1,0 +1,190 @@
+CLASS CityController
+    PRIVATE STATIC instance
+
+    PRIVATE CONSTRUCTOR CityController()
+        // No specific implementation
+
+    PUBLIC STATIC FUNCTION getInstance()
+        IF instance IS NULL THEN
+            instance = NEW CityController()
+        END IF
+        RETURN instance
+    END FUNCTION
+
+    PUBLIC FUNCTION manageStreetLights()
+        PRINT "Managing Street Lights..."
+    END FUNCTION
+
+    PUBLIC FUNCTION manageTrafficSignals()
+        PRINT "Managing Traffic Signals..."
+    END FUNCTION
+
+    PUBLIC FUNCTION sendSecurityAlert(message)
+        PRINT "Sending Security Alert: " + message
+    END FUNCTION
+END CLASS
+
+---------------------------------------------------
+
+INTERFACE Command
+    FUNCTION execute()
+        // Abstract method to be implemented by concrete classes
+    END FUNCTION
+END INTERFACE
+
+---------------------------------------------------
+
+INTERFACE Observer
+    FUNCTION update(message)
+        // Abstract method to receive updates
+    END FUNCTION
+END INTERFACE
+
+---------------------------------------------------
+
+CLASS NotificationService
+    PRIVATE observers AS LIST OF Observer
+
+    FUNCTION addObserver(observer)
+        ADD observer TO observers
+    END FUNCTION
+
+    FUNCTION removeObserver(observer)
+        REMOVE observer FROM observers
+    END FUNCTION
+
+    FUNCTION notifyObservers(message)
+        FOR EACH observer IN observers DO
+            CALL observer.update(message)
+        END FOR
+    END FUNCTION
+END CLASS
+
+---------------------------------------------------
+
+CLASS Resident IMPLEMENTS Observer
+    PRIVATE name
+
+    CONSTRUCTOR Resident(name)
+        SET this.name = name
+    END CONSTRUCTOR
+
+    FUNCTION update(message)
+        PRINT "Resident " + name + " received notification: " + message
+    END FUNCTION
+END CLASS
+
+---------------------------------------------------
+
+CLASS PublicSafetyAuthority IMPLEMENTS Observer
+    FUNCTION update(message)
+        PRINT "Public Safety Authority received notification: " + message
+    END FUNCTION
+END CLASS
+
+---------------------------------------------------
+
+CLASS CryptocurrencyPayment
+    FUNCTION processCrypto(amount)
+        PRINT "Processing crypto payment of " + amount
+    END FUNCTION
+END CLASS
+
+---------------------------------------------------
+
+CLASS CryptoPaymentAdapter IMPLEMENTS DigitalBanking
+    PRIVATE cryptoPayment
+
+    CONSTRUCTOR CryptoPaymentAdapter(cryptoPayment)
+        SET this.cryptoPayment = cryptoPayment
+    END CONSTRUCTOR
+
+    FUNCTION processPayment(amount)
+        CALL cryptoPayment.processCrypto(amount)
+    END FUNCTION
+END CLASS
+
+---------------------------------------------------
+
+CLASS FiatPayment
+    FUNCTION processFiat(amount)
+        PRINT "Processing fiat payment of $" + amount
+    END FUNCTION
+END CLASS
+
+---------------------------------------------------
+
+CLASS FiatPaymentAdapter IMPLEMENTS DigitalBanking
+    PRIVATE fiatPayment
+
+    CONSTRUCTOR FiatPaymentAdapter(fiatPayment)
+        SET this.fiatPayment = fiatPayment
+    END CONSTRUCTOR
+
+    FUNCTION processPayment(amount)
+        CALL fiatPayment.processFiat(amount)
+    END FUNCTION
+END CLASS
+
+---------------------------------------------------
+
+ABSTRACT CLASS DailyRoutine
+    FINAL FUNCTION performRoutine()
+        CALL startRoutine()
+        CALL executeCoreTask()
+        CALL endRoutine()
+    END FUNCTION
+
+    ABSTRACT FUNCTION startRoutine()
+        // Defined in subclass
+    END FUNCTION
+
+    ABSTRACT FUNCTION executeCoreTask()
+        // Defined in subclass
+    END FUNCTION
+
+    ABSTRACT FUNCTION endRoutine()
+        // Defined in subclass
+    END FUNCTION
+END ABSTRACT CLASS
+
+---------------------------------------------------
+
+CLASS SecurityCheckRoutine EXTENDS DailyRoutine
+    OVERRIDE FUNCTION startRoutine()
+        PRINT "Security check routine started"
+    END FUNCTION
+
+    OVERRIDE FUNCTION executeCoreTask()
+        PRINT "Performing security checks around the city..."
+    END FUNCTION
+
+    OVERRIDE FUNCTION endRoutine()
+        PRINT "Security check routine ended"
+    END FUNCTION
+END CLASS
+
+---------------------------------------------------
+
+CLASS TurnOnLightsCommand IMPLEMENTS Command
+    PRIVATE cityController
+
+    CONSTRUCTOR TurnOnLightsCommand(cityController)
+        SET this.cityController = cityController
+    END CONSTRUCTOR
+
+    FUNCTION execute()
+        CALL cityController.manageStreetLights()
+    END FUNCTION
+END CLASS
+
+---------------------------------------------------
+
+INTERFACE DigitalBanking
+    FUNCTION processPayment(amount)
+        // Abstract method to be implemented by concrete classes
+    END FUNCTION
+END INTERFACE
+
+---------------------------------------------------
+
