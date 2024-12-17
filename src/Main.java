@@ -49,22 +49,21 @@ public class Main {
         cityController.manageTrafficSignals();
         cityController.sendSecurityAlert("Unauthorized drone detected");
 
+        // Initializing Hybrid Cloud Proxy
+        HybridCloud hybridCloud = new ProxyHybridCloud();
+        hybridCloud.storeData("CNG353");
+        hybridCloud.loadData("CNG353");
 
         // Strategy Pattern for Traffic/Energy Consumption Predictions
         // Starting with Algorithm A
         StrategyContext context = new StrategyContext(new PredictiveAlgoA());
-        context.executeStrategy("Traffic");
-        context.executeStrategy("Energy");
+        context.executeStrategy("Traffic", hybridCloud);
+        context.executeStrategy("Energy", hybridCloud);
 
         // Switching to Algorithm B
         context.setStrategy(new PredictiveAlgoB());
-        context.executeStrategy("Traffic");
-        context.executeStrategy("Energy");
-
-        HybridCloud hybridCloud = new ProxyHybridCloud();
-        hybridCloud.storeData("CNG353");
-        hybridCloud.loadData("CNG353");
-        hybridCloud.distributedComputation("Traffic");
+        context.executeStrategy("Traffic", hybridCloud);
+        context.executeStrategy("Energy", hybridCloud);
 
     }
 }

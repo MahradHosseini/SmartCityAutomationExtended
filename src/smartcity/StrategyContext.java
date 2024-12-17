@@ -11,7 +11,7 @@ public class StrategyContext {
         this.strategy = strategy;
     }
 
-    public void executeStrategy(String PredictionCase) {
-        strategy.predict(PredictionCase);
+    public void executeStrategy(String predictionCase, HybridCloud hybridCloud) {
+        strategy.predict(predictionCase, hybridCloud);
     }
 }

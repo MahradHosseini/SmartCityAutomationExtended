@@ -1,7 +1,7 @@
 package smartcity;
 
 public class ProxyHybridCloud implements HybridCloud {
-    private RealHybridCloud realHybridCloud;
+    private RealHybridCloud realHybridCloud = new RealHybridCloud();
 
     public void storeData(String data){
         System.out.println("Proxy was called to store: " + data);

@@ -8,15 +8,15 @@ public class RealHybridCloud implements HybridCloud {
     public RealHybridCloud(){}
 
     public void storeData(String data){
-        System.out.println("Data stored in DB: " + data);
+        System.out.println("Hybrid Cloud stored in DB: " + data);
     }
 
     public void loadData(String data){
-        System.out.println("Data loaded from DB: " + data);
+        System.out.println("Hybrid Cloud loaded from DB: " + data);
     }
 
     public String distributedComputation(String predictionCase){
-        System.out.println("Hybrid Cloud computing: " + predictionCase);
+        System.out.println("Hybrid Cloud computed: " + predictionCase);
         List<String> Vals;
         if (predictionCase.equals("Traffic")){
             Vals = Arrays.asList("Heavy", "Moderate", "Low", "No");
@@ -31,6 +31,6 @@ public class RealHybridCloud implements HybridCloud {
         Random rand = new Random();
         int randomIndex = rand.nextInt(Vals.size());
 
-        return Vals.get(randomIndex) + predictionCase;
+        return Vals.get(randomIndex) + " " + predictionCase;
     }
 }
