@@ -49,5 +49,22 @@ public class Main {
         cityController.manageTrafficSignals();
         cityController.sendSecurityAlert("Unauthorized drone detected");
 
+
+        // Strategy Pattern for Traffic/Energy Consumption Predictions
+        // Starting with Algorithm A
+        StrategyContext context = new StrategyContext(new PredictiveAlgoA());
+        context.executeStrategy("Traffic");
+        context.executeStrategy("Energy");
+
+        // Switching to Algorithm B
+        context.setStrategy(new PredictiveAlgoB());
+        context.executeStrategy("Traffic");
+        context.executeStrategy("Energy");
+
+        HybridCloud hybridCloud = new ProxyHybridCloud();
+        hybridCloud.storeData("CNG353");
+        hybridCloud.loadData("CNG353");
+        hybridCloud.distributedComputation("Traffic");
+
     }
 }
